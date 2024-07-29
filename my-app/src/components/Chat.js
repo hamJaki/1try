@@ -31,7 +31,7 @@ function Chat() {
     const [latexContent, setLatexContent] = useState('');
     const [showLatex, setShowLatex] = useState(false);
     const messagesEndRef = useRef(null);
-    const API_URL = 'https://1try-production.up.railway.app/';
+    const API_URL = 'https://1try-production.up.railway.app';
     const navigate = useNavigate();
 
     useEffect(() => {
