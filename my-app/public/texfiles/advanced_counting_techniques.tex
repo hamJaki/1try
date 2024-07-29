@@ -1,0 +1,165 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+    \title{Advanced Counting Techniques}
+    \author{Your Name}
+    \maketitle
+
+    \section{Applications of Recurrence Relations}
+    Recurrence relations, also known as difference equations or recursive functions, express a sequence in terms of preceding terms. They are essential in various fields, including computer science and optimization.
+
+    The general form of a recurrence relation is:
+
+    \begin{equation}
+        a_n = f(a_{n-1}, a_{n-2}, \ldots, a_1)
+    \end{equation}
+
+    where \(a_n\) is the \(n^{th}\) term of the sequence, and \(f\) is a function that defines how to compute \(a_n\) from previous terms.
+
+    Applications include:
+
+    \begin{itemize}
+        \item {\bf Algorithms:} Many algorithms, especially divide-and-conquer algorithms, can be described by recurrence relations. For instance, the time complexity of Merge Sort is given by:
+
+        \begin{equation}
+            T(n) = 2T\left(\frac{n}{2}\right) + n
+        \end{equation}
+
+        \item {\bf Combinatorial Problems:} Recurrence relations appear in problems like the Fibonacci sequence:
+
+        \begin{equation}
+            F(n) = F(n - 1) + F(n - 2)
+        \end{equation}
+
+        \item {\bf Mathematical Modelling:} Population models, growth and decay models, and financial models often use recurrence relations.
+    \end{itemize}
+
+    \section{Solving Linear Recurrence Relations}
+    A linear recurrence relation of order $k$ is given by:
+
+    \begin{equation}
+        x_n = c_1x_{n-1} + c_2x_{n-2} + \ldots + c_kx_{n-k}
+    \end{equation}
+
+    where $c_1, c_2, \ldots, c_k$ are constants.
+
+    For a second-order linear recurrence relation:
+
+    \begin{equation}
+        x_n = c_1x_{n-1} + c_2x_{n-2}
+    \end{equation}
+
+    The solution can be expressed as $x_n = ar^n$, where $a$ and $r$ are constants. Substituting this into the relation yields:
+
+    \begin{equation}
+        ar^n = c_1ar^{n-1} + c_2ar^{n-2}
+    \end{equation}
+
+    Cancelling $a$ and dividing by $r^{n-2}$, we obtain the characteristic equation:
+
+    \begin{equation}
+        r^2 = c_1r + c_2
+    \end{equation}
+
+    The roots $r_1$ and $r_2$ provide the general solution:
+
+    \begin{equation}
+        x_n = A r_1^n + B r_2^n
+    \end{equation}
+
+    where $A$ and $B$ are determined by initial conditions.
+
+    \section{Divide-and-Conquer Algorithms and Recurrence Relations}
+    The divide-and-conquer paradigm involves:
+
+    \begin{itemize}
+        \item \textit{Divide:} Split the problem into subproblems.
+        \item \textit{Conquer:} Solve subproblems recursively.
+        \item \textit{Combine:} Merge solutions into a final solution.
+    \end{itemize}
+
+    For example, Merge Sort is expressed as:
+
+    \begin{equation}
+        T(n) =
+        \begin{cases}
+            \Theta(1) & \text{if } n = 1 \\
+            2T(n/2) + \Theta(n) & \text{if } n > 1
+        \end{cases}
+    \end{equation}
+
+    The binary search algorithm can be represented as:
+
+    \begin{equation}
+        T(n) =
+        \begin{cases}
+            \Theta(1) & \text{if } n = 1 \\
+            T(n/2) + \Theta(1) & \text{if } n > 1
+        \end{cases}
+    \end{equation}
+
+    The general form for divide-and-conquer algorithms is:
+
+    \begin{equation}
+        T(n) = aT(n/b) + O(n^d)
+    \end{equation}
+
+    \section{Generating Functions}
+    A generating function for a sequence $\{a_k\}_{k=0}^{\infty}$ is given by:
+
+    \begin{equation}
+        A(x) = \sum_{k=0}^{\infty} a_k x^k
+    \end{equation}
+
+    For example, the sequence of natural numbers has the generating function:
+
+    \begin{equation}
+        A(x) = \sum_{k=0}^{\infty} kx^k
+    \end{equation}
+
+    Generating functions can solve recurrence relations, such as:
+
+    \begin{equation}
+        a_n = 3a_{n-1} + 2^n, \quad a_0 = 1
+    \end{equation}
+
+    We find $A(x)$ and derive:
+
+    \begin{equation}
+        A(x) = \frac{1 + 3x - 6x^2}{1 - 3x + 2x^2}
+    \end{equation}
+
+    \section{Inclusion–Exclusion Principle}
+    The Inclusion–Exclusion Principle computes the number of elements in the union of several sets. For two sets:
+
+    \begin{equation}
+        |A \cup B| = |A| + |B| - |A \cap B|
+    \end{equation}
+
+    For three sets:
+
+    \begin{equation}
+        |A \cup B \cup C| = |A| + |B| + |C| - |A \cap B| - |B \cap C| - |C \cap A| + |A \cap B \cap C|
+    \end{equation}
+
+    The general form is:
+
+    \begin{equation}
+        |A_1 \cup A_2 \cup \cdots \cup A_n| = \sum |A_i| - \sum |A_i \cap A_j| + \sum |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n+1}|A_1 \cap A_2 \cap \cdots \cap A_n|
+    \end{equation}
+
+    This principle can be used to solve complex counting and probability problems.
+
+    \section{Applications of Inclusion–Exclusion}
+    Inclusion-Exclusion is vital in combinatorics and probability, used to calculate the number of elements in the union of sets or solve probability problems. It is especially useful when dealing with overlapping sets or events.
+
+    For $n$ sets $A_1, A_2, \ldots, A_n$, the size of their union $A = A_1 \cup A_2 \cup \ldots \cup A_n$ is given by:
+
+    \begin{equation}
+        |A| = \sum |A_i| - \sum |A_i \cap A_j| + \sum |A_i \cap A_j \cap A_k| - \ldots + (-1)^{n+1} |A_1 \cap A_2 \cap \ldots \cap A_n|
+    \end{equation}
+
+    This formula accounts for overlapping elements, ensuring accurate counting or probability calculations.
+
+\end{document}

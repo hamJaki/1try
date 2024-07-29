@@ -1,0 +1,124 @@
+\section{Discrete Probability}
+\subsection{An Introduction to Discrete Probability}
+Sure, here is a basic introduction to discrete probability written in LaTeX format. The LaTeX format uses a lot of special characters, so it might seem intimidating at first, but it's quite systematic once you get the hang of it.
+
+\begin{verbatim}
+\section{Introduction to Discrete Probability}
+Discrete probability is a fundamental concept in statistics. It deals with events that have a specific set of possible outcomes or states, mainly in the case where these outcomes are countable numbers.
+
+For example, in a coin toss, there are two possible and distinct outcomes — either heads (H) or tails (T).
+
+\subsection{Probability Mass Function and Discrete Probability Distributions}
+
+For each element in a sample space, a discrete random variable will have a certain probability associated with it. This can be represented or quantified by probability mass function (pmf), usually denoted as $P(X = x)$.
+
+The probability mass function for a random discrete variable $X$ is given by:
+
+\[P(X = x) = p(x)\]
+
+such that it satisfies the following conditions:
+
+\begin{itemize}
+\item $p(x) \geq 0$ for all $x$,
+\item $\sum_{x \in X}{p(x)} = 1$.
+\end{itemize}
+
+This is the fundamental concept behind discrete probability distributions, such as the Binomial distribution, Poisson distribution, Bernoulli distribution etc.
+
+\subsection{Expected Value and Variance}
+Two of the most important measures that describe a distribution are its expected value and variance.
+
+Expected value, or mean, is the long-run average or mean of repetitions of the experiment it represents. For a discrete random variable $X$, it's found by summing the product of each outcome and its associated probability.
+
+\[ E(X) = \sum_{x \in X}{x \cdot P(X = x)} \]
+
+Variance measures how spread out the values are. It's the expectation of the squared deviation of a random variable from its mean. For a discrete random variable $X$ with mean $\mu$:
+
+\[ Var(X) = \sum_{x \in X}{(x - \mu)^2 \cdot P(X = x)} = E((X-\mu)^2) \]
+
+\ 
+In conclusion, discrete probability lies at the heart of many practical applications in statistics, machine learning, and computer science. Understanding its principles enables us to model and solve numerous real-world problems.
+
+\end{verbatim}
+
+Note: The actual output would look much more understandable and interactive when compiled within a LaTeX environment like TeXstudio, Overleaf, etc. as it would render the scientific notations and equations properly.
+
+\subsection{Probability Theory}
+Sure, I can certainly provide such an explanation. 
+
+Probability theory is a branch of mathematics concerned with determining the likelihood that a given event will occur. This likelihood is determined by dividing the number of selected events by the number of total events possible.
+
+First, understanding mathematics starts with defining terms. We define $\Omega$ as our Sample Space. This includes all the outcomes of an experiment. An element $\omega \ \epsilon \ \Omega$ is one observation.
+
+For a random event A, which is a subset of our Sample Space, the probability $P(A)$ is defined subject to the following conditions:
+
+\begin{align*}
+0 \leq & P(A) \leq 1 \ \forall A \ \epsilon \ \Omega \\
+& P(\Omega)=1 \\
+& \text{For any countable sequence of sets } (A_{i}) \text{ that are mutually exclusive }(A_{i} \cap A_{j}= \emptyset \ \text{for} \ i \neq j), \\
+& P \Biggl( \bigcup_{i=1}^{\infty} A_{i} \Biggr) = \sum_{i=1}^{\infty}  P(A_{i})
+\end{align*}
+
+The last equation denotes the \textit{countable additivity} property. The probability that any of the countable sequence of sets (events) happens is equal to the sum of their individual probabilities.
+
+The probability of the complement of A (an event not occurring) is given by $P(A') = 1- P(A)$.
+
+For two events A and B, the probability that either A or B or both occur is given by the equation $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
+
+Conditional probability is the probability of one event occurring with some relationship to one or more other events. For example, the probability Event A given Event B is defined as $ P(A|B) = \frac{P(A \cap B)}{P(B)}$.
+
+Finally, two events A and B are said to be independent if the occurrence of A does not change the probability of the occurrence of B, mathematically this is expressed as $P(A \cap B) = P(A)P(B)$.
+
+
+\subsection{Bayes’ Theorem}
+Sure, let's define the Bayes' theorem in LaTeX. 
+
+The Bayes' Theorem is a way to find a probability when we know certain other probabilities. The formula is often used in probability theory and statistics, particularly in the areas of machine learning and data science. The formula can be given as follows:
+
+```latex
+\begin{equation}
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+\end{equation}
+```
+
+In this formula, 
+
+- `P(A|B)` is called the posterior probability. It is the conditional probability of event A given that event B has already occurred. 
+
+- `P(B|A)` is the conditional probability of event B given event A. It is also known as the likelihood. 
+
+- `P(A)`  and `P(B)` are the probabilities of events A and B respectively. `P(A)` is called the prior probability, and `P(B)` is the evidence. 
+
+The beauty of Bayes' theorem lies in the fact that we can compute the posterior probability `P(A|B)` from the likelihood `P(B|A)`, the prior `P(A)` and the evidence `P(B)`.
+
+To give a concrete example, let's consider a simple scenario with a binary class problem. Suppose we want to compute the probability of an email being spam (`A`) given it contains the word "free" (`B`). We can model this in LaTeX as follows:
+
+```latex
+\begin{equation}
+P(\text{{Spam}}|\text{{"free"}}) = \frac{P(\text{{"free"}}|\text{{Spam}}) \cdot P(\text{{Spam}})}{P(\text{{"free"}})}
+\end{equation}
+```
+
+This is the foundation of Bayesian inference and is extensively used in a variety of fields ranging from machine learning to philosophy.
+
+\subsection{Expected Value and Variance}
+Expected Value and Variance are fundamental concepts in statistics, particularly in the field of Probability Theory. 
+
+The Expected Value (EV) of a random variable is a measure of the center of the distribution of the variable. More practically, it provides a 'long run average' value of the variable, given its probabilities. For a discrete random variable $X$, with probability mass function $P(X)$, the Expected Value is defined as:
+
+\begin{equation}
+E(X) = \sum_{x} xP(X=x)
+\end{equation}
+
+where the summation is over all outcomes $x$.
+
+Variance, on the other hand, is a measure of the dispersion or the "spread" of the variable around its Expected Value. It gives us an idea of how much on average the outcomes deviate from the Expected Value. For the same discrete random variable $X$ with Expected Value $\mu = E(X)$, the Variance, denoted by $Var(X)$, is defined as following:
+
+\begin{equation}
+Var(X) = E\left((X-\mu)^2\right) = \sum_{x} (x-\mu)^2 P(X=x)
+\end{equation}
+
+The square root of variance gives the Standard Deviation which also expresses the dispersion of a random variable. Higher variance means the data is more spread out around the mean and vice versa.
+
+The concepts of Expected Value and Variance are highly practical and are used in a variety of fields such as Physics, Engineering, Economics, Computer Science, Data Science and Quantitative Finance.
+

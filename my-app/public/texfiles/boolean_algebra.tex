@@ -1,0 +1,230 @@
+\section{Boolean Algebra}
+\subsection{Boolean Functions}
+Sure, Boolean functions are a fundamental concept in mathematics and computer science. They are used in the design of computer circuits and the study of logical operations. 
+
+In LaTeX format, a brief discussion about Boolean functions would look something like this:
+
+\[
+\begin{verbatim}
+Boolean functions are one of the fundamental concepts in mathematics and computer science, often used in designing computer circuits and studying logical operations. 
+    
+A Boolean function is a function that takes binary (0 or 1) values as input and outputs a binary value. The most common binary operations include AND, OR, and NOT.
+
+Formally, given a binary set $B = \{0, 1\}$, a Boolean function is any function of the form 
+
+$$f : B^n \rightarrow B$$
+
+For instance, the AND function is represented as:
+
+$$f(x,y) = x \land y$$
+
+This results in:
+
+\begin{tabular}{|c|c|c|}
+\hline
+$x$ & $y$ & $f(x, y)$ \\
+\hline
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 1 \\
+\hline
+\end{tabular}
+
+Similarly, the OR function is represented as:
+
+$$f(x,y) = x \lor y$$
+
+This gives the truth table:
+
+\begin{tabular}{|c|c|c|}
+\hline
+$x$ & $y$ & $f(x, y)$ \\
+\hline
+0 & 0 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 1 \\
+\hline
+\end{tabular}
+
+The NOT function is a unary operation and is represented as:
+
+$$f(x) = \neg x$$
+
+The NOT operation flips the binary input:
+
+\begin{tabular}{|c|c|}
+\hline
+$x$ & $f(x)$ \\
+\hline
+0 & 1 \\
+1 & 0 \\
+\hline
+\end{tabular}
+\end{verbatim}
+\]
+
+Remember to use this LaTeX code inside a dedicated LaTeX editor to properly display the syntax.
+
+\subsection{Representing Boolean Functions}
+Boolean functions are often used in computer science and electrical engineering, notably in the design of digital circuits and computer programming. They handle binary variables and have been applied in logic gates and digital computation.
+
+We can represent Boolean functions in various forms, but the most common ones are the truth table, canonical form and Boolean expressions.
+
+Here's a LaTeX explanation of representing Boolean functions.
+
+{\it Truth Table.} A truth table lists all possible values of a Boolean function. Given $n$ binary variables, there are $2^n$ possible combinations. Here's an example of a truth table for the boolean function $f(x, y) = x \land y$ (logical AND).
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$x$ & $y$ & $f(x, y)$ \\\hline
+0 & 0 & 0 \\\hline
+0 & 1 & 0 \\\hline
+1 & 0 & 0 \\\hline
+1 & 1 & 1 \\\hline
+\end{tabular}
+\end{center}
+
+{\it Canonical form.} Every Boolean function, no matter how complex, can be expressed as a sum of minterms (for OR operations) or a product of maxterms (for AND operations). A minterm (respectively, maxterm) is a product (respectively, sum) of the variables in the Boolean function in either their normal or complementary forms. 
+
+For example, given a boolean function $f(x, y, z)$, the canonical representation known as the sum of product is given as:
+
+\[f(x, y, z) = \Sigma m(1, 2, 4, 7)\]
+
+Here, the index in the minterm ($m$) represents the row number of the truth table where the output is 1. For example, $m(1, 2, 4, 7)$ represents the rows of the truth table where the function $f$ equals to 1.
+
+{\it Boolean expressions.} A Boolean function can also be represented as a Boolean expression involving binary connectives. For example, the Boolean function $f(x, y) = x \land y$ can be written as a Boolean expression $x \cdot y$.
+
+Boolean functions representation is a vital concept in digital electronics and particularly in creating an understanding of programmable logic devices, algorithm construction, optimization procedures, logical expressions and so on.
+
+Please note that the LaTeX code above can only be properly viewed on a LaTeX interpreter. Write it on overleaf, texmaker, LaTeX base or another LaTeX editing platform to properly visualize.
+
+\subsection{Logic Gates}
+Logic gates are the building blocks of digital electronics and digital circuits. They perform basic logical functions that are fundamental to digital circuits. Most logic gates take an input of two binary values, process them according to a rule (function), and then produce a single binary output. 
+
+Below are the basic logic gates:
+
+1. AND Gate: Outputs true or "1" only when all inputs are true (1).
+
+\[
+\begin{align*}
+A & B & Output \\
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 1 \\
+\end{align*}
+\]
+
+2. OR Gate: Outputs true or "1" when at least one input is true (1).
+
+\[
+\begin{align*}
+A & B & Output \\
+0 & 0 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 1 \\
+\end{align*}
+\]
+
+3. NOT Gate (Inverter): This gate has only one input and one output. The output is the inverse of the input.
+
+\[
+\begin{align*}
+A & Output \\
+0 & 1 \\
+1 & 0 \\
+\end{align*}
+\]
+
+4. NAND Gate (NOT-AND): Outputs false or "0" only when both inputs are true (1).
+
+\[
+\begin{align*}
+A & B & Output \\
+0 & 0 & 1 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\end{align*}
+\]
+
+5. NOR Gate (NOT-OR): Outputs true or "1" only when both inputs are false (0).
+
+\[
+\begin{align*}
+A & B & Output \\
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+\end{align*}
+\]
+
+6. XOR Gate (Exclusive OR): Outputs true or "1" when the number of true inputs is odd.
+
+\[
+\begin{align*}
+A & B & Output \\
+0 & 0 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\end{align*}
+\]
+
+7. XNOR Gate (Exclusive NOR): Outputs true or "1" when the number of true inputs is even.
+
+\[
+\begin{align*}
+A & B & Output \\
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 1 \\
+\end{align*}
+\]
+
+\subsection{Minimization of Circuits}
+The minimization of circuits is a process in the study of digital design where circuits are simplified while maintaining the same function. This is generally done for optimization such as reducing the area in a board or lessen the power needed. A commonly used methodology is the Karnaugh Map or Boolean Algebra.
+
+We start with a Boolean function:
+\begin{equation}
+f(a, b, c) = \mu (1,2,3,5,7)
+\end{equation}
+where $\mu$ signifies minterms and the numbers in parentheses are indices of the minterms. 
+
+A Karnaugh Map for the function can be as follows:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\multicolumn{2}{c}{}&\multicolumn{2}{c}{$ab$}&\\
+\cline{3-5}
+\multicolumn{2}{c|}{}&$00$&$01$&$11$&$10$\\
+\cline{2-5}
+\multirow{4}*{\rotatebox[origin=c]{90}{$c$}}&$0$&$0$&$1$&$1$&$1$\\
+\cline{2-5}
+&$1$&$1$&$0$&$1$&$1$\\
+\cline{2-5}
+\end{tabular}
+\end{table}
+
+In the table above, 1s represent the indices of the minterms of the Boolean function. 
+
+Next is the step of grouping the 1s (the minterms). The key rule is that the number of elements in a group should be a power of 2. 
+
+For instance, in the Boolean function above, one possible valid way could be grouping $a'b'c'$, $a'bc'$, $a'bc$ and $ab'c'$ (refer to the indices of the minterms). 
+
+The Boolean function can then be rewritten as:
+\begin{equation}
+f(a, b, c) = a'c' + ac
+\end{equation}
+
+This shows that the circuits can be minimized from four minterms to just two.
+
+The aim of the process is to derive a simplified expression for a given logic circuit, allowing for more efficient hardware designs. This is directly connected to cost efficiency, as fewer logic gates lead to smaller, less power-hungry, and cheaper to manufacture circuits.
+

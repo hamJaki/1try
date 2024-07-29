@@ -1,0 +1,285 @@
+\section{Number Theory and Cryptography}
+\subsection{Divisibility and Modular Arithmetic}
+Sure, let's start with divisibility first:
+
+Divisibility is a critical concept in number theory. If $a$ and $b$ are integers, we say that $a$ divides $b$ (or $b$ is divisible by $a$) if there is an integer $n$ such that $b = a \cdot n$. 
+
+In LaTeX, this is written as
+```
+If $a$ and $b$ are integers, we say that $a$ divides $b$ (or $b$ is divisible by $a$) if there is an integer $n$ such that $b = a \cdot n$.
+```
+
+Now, moving onto modular arithmetic, which is often introduced alongside divisibility.
+
+Modular arithmetic is a system of arithmetic for integers where numbers "wrap around" after reaching a certain value (the modulus). For example, in modular arithmetic with modulus 12, after 11 comes 0, not 12.
+
+The notation $a \equiv b$ (mod $m$) is used to say that $a$ and $b$ leave the same remainder when divided by $m$. Formally, $a \equiv b$ (mod $m$) if $m$ divides $a - b$.
+
+In LaTeX:
+```
+The notation $a \equiv b$ (mod $m$) is used to say that $a$ and $b$ leave the same remainder when divided by $m$. Formally, $a \equiv b$ (mod $m$) if $m$ divides $a - b$.
+```
+
+Here are some properties of modular arithmetic:
+1. If $a \equiv b$ (mod $m$) and $c \equiv d$ (mod $m$), then $a+c \equiv b+d$ (mod $m$) and $ac \equiv bd$ (mod $m$).
+2. If $a \equiv b$ (mod $m$), then $a^n \equiv b^n$ (mod $m$) for any integer $n \ge 0$.
+
+In LaTeX:
+```
+\begin{enumerate}
+\item If $a \equiv b$ (mod $m$) and $c \equiv d$ (mod $m$), then $a+c \equiv b+d$ (mod $m$) and $ac \equiv bd$ (mod $m$).
+\item If $a \equiv b$ (mod $m$), then $a^n \equiv b^n$ (mod $m$) for any integer $n \ge 0$.
+\end{enumerate}
+```
+
+Remember to use LaTeX, you need to be in math mode, which is typically initiated and concluded with dollar signs. For larger blocks of mathematical content, such as the enumerated list above, you should use ``\begin{equation}`` and ``\end{equation}``.
+
+\subsection{Integer Representations and Algorithms}
+In general, integer representations refer to the different ways of representing integers in computer systems, while algorithms are the step-by-step procedures used to perform operations on these integers.
+
+A lot of mathematical operations and concepts can be expressed in terms of integers, hence, understanding their representations and how we can manipulate them using algorithms is fundamental. In this discussion, we will cover integer representations, basic integer algorithms, and their LaTeX representation. 
+
+\begin{document}
+
+\section{Integer Representations}
+
+Integer representations are primarily of two types: signed and unsigned. The most significant bit represents the sign in signed representation, with '0' for positive and '1' for negative. The remaining bits represent the magnitude of the integer.
+
+\subsection{Binary Representation}
+Binary is the simplest form and the most commonly used. An $n$-bit binary integer, $a = a_{n-1}a_{n-2}\ldots a_{1}a_{0}$ is represented in LaTeX as:
+
+\[
+a = \sum_{i=0}^{n-1} a_i \cdot 2^i
+\]
+
+\section{Integer Algorithms}
+
+Integer algorithms concern the manipulation and operation of integers. The most common algorithms involve basic operations, such as addition, subtraction, multiplication, and division. 
+
+\subsection{Addition/Subtraction}
+Addition and subtraction in binary works similarly as in decimal numbers. They are represented in LaTeX as follows:
+
+\[
+c = a + b = \sum_{i=0}^{n-1} (a_i + b_i) \cdot 2^i
+\]
+
+\[
+d = a - b = \sum_{i=0}^{n-1} (a_i - b_i) \cdot 2^i
+\]
+
+\subsection{Multiplication}
+
+Binary multiplication also works similarly as in decimal numbers. If $a = a_{n-1}a_{n-2}\ldots a_{1}a_{0}$ and $b = b_{n-1}b_{n-2}\ldots b_{1}b_{0}$ are two binary integers, their product is:
+
+\[
+ab = \sum_{i=0}^{n-1} \sum_{j=0}^{n-1} a_i b_j \cdot 2^{i+j}
+\]
+
+\subsection{Division}
+Binary division is similar to long division in decimal numbers. Let $a$ be a dividend and $b$ be a divisor, the quotient, $q$, and the remainder, $r$, are the result of the division.
+
+\[
+a = bq + r
+\]
+
+\end{document}
+
+These are the basics of integer representations and algorithms. They form the foundation for more complex mathematical operations and computations in Computer Science.
+
+\subsection{Primes and Greatest Common Divisors}
+Sure, here is an explanation of primes and greatest common divisors (GCD) using LaTeX format.
+
+Firstly, let's define a prime number:
+
+A prime number $p$ is an integer greater than 1 that has no positive divisors other than 1 and $p$. In mathematical notation:
+
+$p > 1$ is a prime number if and only if its only divisors are 1 and $p$.
+
+This can also be written as a set of divisors like so:
+
+$\{d : d | p\} = \{1, p\}$
+
+Where the notation "$d | p$" means d divides evenly into p.
+
+A GCD Function is then defined as follows:
+
+For any two numbers $a$, and $b$, we define gcd($a$, $b$) as the greatest common divisor of $a$ and $b$. This is the largest number that can divide both $a$ and $b$ without leaving a remainder.
+
+The GCD can be determined using Euclid's algorithm, which uses repeated subtraction in its simplest form, but more often uses division:
+
+The GCD will always exist and is determined by the Fundamental Theorem of Arithmetic, which states that every integer greater than 1 either is a prime number itself or can be factorized as a product of prime numbers. So, the GCD of two numbers is the product of the smallest power of each prime divisor common to the numbers. 
+
+Here is the LaTeX notation for the Euclidean Algorithm:
+
+\[
+\begin{equation}
+gcd(a, b) = 
+\begin{cases} 
+b, & \text{if } a \% b = 0 \\
+gcd(b, a \% b), & \text{otherwise}
+\end{cases}
+\end{equation}
+\]
+
+We continue this process until $a\%b$ is 0, at which point $b$ is the GCD of the original two numbers.
+
+\subsection{Solving Congruences}
+Sure, here is a basic introduction to solving congruences using LaTeX.
+
+Congruences are fundamental to the theory of numbers. A congruence is an equation that equates an integer multiple of a number plus another number to a third number. It is a relation involving two integers \`a\` and \`b\` which can be written in the form \`a \equiv b\`(mod \`m\`).
+
+If \`m\` divides \`a - b\`, then we say that \`a\` and \`b\` are "congruent modulo \`m\`", denoted as:
+
+\begin{equation}
+a \equiv b \mod{m}
+\end{equation}
+
+This states that \`a\` and \`b\` leave the same remainder when divided by \`m\`.
+
+### Solving Congruences
+
+To solve a congruence essentially means to find the value of the variable that makes the congruence true. We use the method of successive substitution to find such solutions. For example, if you have the congruence:
+
+\begin{equation}
+2x \equiv 3 \mod{7}
+\end{equation}
+
+We will need to find the modular inverse of 2 modulo 7. A modular inverse of \`a\`(mod \`m\`) is a number \`x\` such that
+
+\begin{equation}
+ax \equiv 1 \mod{m}
+\end{equation}
+
+The modular inverse of 2 modulo 7 is 4 because 2*4 = 8 which is 1 modulo 7. Thus, the original congruence 
+
+\begin{equation}
+2x \equiv 3 \mod{7}
+\end{equation}
+
+can be rewritten as
+
+\begin{equation}
+x \equiv 3 * 4 \mod{7} 
+\end{equation}
+
+or,
+
+\begin{equation}
+x \equiv 5 \mod{7}
+\end{equation}
+
+And we can see that 5 is a solution to the original congruence since 2*5 = 10 which is 3 modulo 7.
+
+\subsection{Applications of Congruences}
+Congruences are a powerful tool in number theory and many other branches of mathematics. They are useful in a variety of problems, ranging from simple ones like finding the last digit of a large number to complex ones like encryption algorithms in computer science.
+
+In LaTeX format, this topic would be explained as follows:
+
+```
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+
+\begin{document}
+\title{Applications of Congruences}
+\maketitle
+
+A congruence relation is a binary relation that satisfies the reflexive, symmetric, and transitive properties. One common type of congruence relates to integers and their remainders when divided by a fixed positive integer $m$. For example, two integers $a$ and $b$ are congruent modulo $m$ if $a - b$ is divisible by $m$. This can be written as:
+\begin{equation}
+a \equiv b \, (\mathrm{mod}\, m)
+\end{equation}
+
+\section{Applications of Congruences}
+
+Congruences can be applied in a variety of different contexts, including encryption methods, the determination of days of the week, and solving Diophantine equations.
+
+\subsection{Cryptography}
+
+One application of congruences is the RSA encryption method. In this method, the key pair consists of large primes $p$ and $q$, and $n = pq$. A given plaintext number $P$ is encrypted into cypher text $C$ by a public key $e$ using the following formula:
+\begin{equation}
+C \equiv P^e \, (\mathrm{mod}\, n)
+\end{equation}
+The encrypted message $C$ can be decrypted back into plaintext $P$ using a private key $d$ with the formula:
+\begin{equation}
+P \equiv C^d \, (\mathrm{mod}\, n)
+\end{equation}
+
+\subsection{Determination of days of the week}
+
+Suppose we want to know which day of the week a particular date falls on. If the date were $n$ days after a known day of the week, then given that the week is 7 days, we could use congruences to make this determination. Specifically, if $d~ (\mathrm{mod}~ 7) = r$, then $n$ days later will be $(d+n)~ (\mathrm{mod}~7)$, and since adding $7$ doesn't change the day of the week, this is equal to $r~ (\mathrm{mod}~7)$.
+
+\subsection{Solving Diophantine equations}
+
+Congruence can also help solve Diophantine equations - equations seeking integer solutions. For example, suppose you need to find all positive integers $n$ that satisfy $n^2 \equiv 1\, (\mathrm{mod}\, 24)$. The congruence $n^2 \equiv 1\, (\mathrm{mod}\, 24)$ implies that 24 divides $(n-1)(n+1)$, and from this fact we can deduce the possible values of $n$.
+
+Congruences provide a convenient language and machinery for solving these and many other problems.
+\end{document}
+```
+
+This LaTex code will describe the basic concept of congruences and their applications. The examples are given and basic equations are written in LaTeX standard format for ease of reading and understanding.
+
+\subsection{Cryptography}
+Certainly, I'll give you a brief LaTeX-format explanation of cryptography concepts like symmetric key algorithms (SKA), asymmetric key algorithms (AKA), and RSA encryption algorithm.
+
+```
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\title{Cryptography: A Brief Overview}
+
+\begin{document}
+
+\maketitle
+
+Cryptography is an essential tool for secure communication and protecting sensitive information from unauthorized access or alteration. Its primary goal is to ensure data confidentiality, data integrity, authenticity, and non-repudiation.
+
+\section{Symmetric Key Algorithms (SKA)}
+
+Symmetric Key Algorithms use the same key for encryption and decryption. Examples include Advanced Encryption Standard (AES), Data Encryption Standard (DES), and Triple-DES. 
+
+The mathematical basis for SKA can be modelled as:
+
+\begin{equation}
+C = E(k, P)
+\end{equation}
+
+where $C$, $k$, $P$ represent the ciphertext, key, and plaintext respectively, and $E$ is the encryption algorithm. The decryption algorithm $D$ allows us to recover plaintext from ciphertext:
+
+\begin{equation}
+P = D(k, E(k, P)) 
+\end{equation}
+
+\section{Asymmetric Key Algorithms (AKA)}
+
+Unlike SKA, AKA employ two different keys for encryption and decryption - a public key for encryption, and a private key for decryption. Examples include RSA, ElGamal and Diffie-Hellman.
+
+Again, if $C$, ${k}_{pub}$, ${k}_{priv}$, $P$ represent the ciphertext, public key, private key, and plaintext respectively, we can write AKA model mathematically as follows:
+
+\begin{equation}
+C = E({k}_{pub}, P)
+\end{equation}
+
+\begin{equation}
+P = D({k}_{priv}, E({k}_{pub}, P))
+\end{equation}
+
+\section{RSA Encryption Algorithm}
+
+In the RSA encryption algorithm, a pair of keys are created using two large prime numbers. We'll denote our prime numbers as $p$ and $q$. We choose a number $e$ such that it is relatively prime to $(p-1)(q-1)$. Our public key is then $k_{pub} = (e, n)$ where $n=pq$. The private key $k_{priv}$ is computed as the multiplicative inverse of $e\ mod\ (p-1)(q-1)$. 
+
+RSA can be summarized as:
+
+\begin{equation}
+C = P^e\ mod\ n
+\end{equation}
+
+\begin{equation}
+P = C^d\ mod\ n
+\end{equation}
+
+where $C$, $P$, $e$, $n$ are the ciphertext, plaintext, public key, and modulus respectively.
+
+\end{document}
+```
+Note: Please adjust the sections according to your needs and use the appropriate math environments in your final LaTeX document. Remember to replace each instance of `\( ... \)` with `$...$` in your actual LaTeX document as `\(...\)` is not recognized in some LaTeX distributions.
+

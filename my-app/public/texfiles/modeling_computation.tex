@@ -1,0 +1,204 @@
+\section{Modeling Computation}
+\subsection{Languages and Grammars}
+The topic "Languages and Grammars" is related to theoretical computer science and formal language theory, rather than mathematics in a traditional sense. However, here is an explanation formatted in LaTeX:
+
+```latex
+\documentclass{article}
+\usepackage{amsmath} % for math symbols
+
+\begin{document}
+
+\title{Languages and Grammars}
+\maketitle
+
+Languages and grammars are key concepts in the field of theoretical computer science.
+
+\section{Formal Languages}
+
+A formal language is a set of strings over some finite alphabet $ \Sigma $. It is conventional to represent strings using Greek letters $\alpha, \beta, \gamma, \ldots$ and languages using calligraphic letters $ \mathcal{L}, \mathcal{M}, \mathcal{N}, \ldots $
+
+\section{Formal Grammars}
+
+A formal grammar is a way of generating strings in a language. It is a system of rules for transforming strings.
+
+Formally, a grammar $G$ is given by four components:
+
+\begin{itemize}
+\item A set $V$ of nonterminal symbols
+\item A set $\Sigma$ of terminal symbols disjoint from $V$
+\item A set $P$ of production rules, each rule of the form $ (v \rightarrow \omega) $ where $v \in V$ and $\omega$ is a string of symbols in $ V \cup \Sigma $
+\item A particular symbol $S \in V$. This is the start symbol of the grammar.
+\end{itemize}
+
+Different kinds of grammars, such as context-free and context-sensitive, differ in the restrictions imposed on the production rules.
+
+\end{document}
+```
+
+This LaTeX code will generate a document explaining the basic concepts of languages and grammars. The explanations are succinct and require some basic knowledge of theoretical computer science to understand fully.
+
+\subsection{Finite-State Machines with Output}
+Sure, here's an introduction to finite-state machines with output in LaTeX. This will include a definition, basic algorithms to calculate output and a few simple figures.
+
+```
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgf, tikz}
+\usetikzlibrary{arrows, automata}
+
+\begin{document}
+
+\section{Finite-State Machines with Output}
+A Finite-State Machine (FSM) with output, also known as a Moore machine, is a mathematical model of computation. It is an abstract machine that can be in exactly one of a finite number of states at any given time. The FSM can change from one state to another in response to some external inputs. The change from one state to another is determined by a transition function, and the output depends on the state itself. 
+
+\subsection{Structure}
+Typically, the FSM with output or Moore machine is defined by a 5-tuple $M = (Q, q_0, F, \Sigma, \Delta)$ where:
+
+\begin{itemize}
+  \item $Q$ is a finite set of states.
+  \item $q_0 \in Q$ is the initial state.
+  \item $F \subseteq Q$ is the set of final or accepting states.
+  \item $\Sigma$ is a finite set called the input alphabet.
+  \item $\Delta : Q \times \Sigma \rightarrow Q \times \Gamma$ is the transition function combined with the output function. $\Gamma$ is the output alphabet.
+\end{itemize}
+
+The FSM changes state by taking an element of $\Sigma$ and produces an output from $\Gamma$ based on the current state and input.
+
+\subsection{Graphical Representation}
+A FSM can be graphically represented with nodes and directed edges. Nodes represent states, directed edges represent transitions. The output associated with a state can be labelled on the corresponding node.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=red,draw=none,text=white]
+
+  \node[initial,state] (A)              {q0, 0};
+  \node[state]         (B) [right of=A] {q1, 1};
+  \path (A) edge[loop above] node {0/0} (A)
+            edge              node {1/0} (B)
+        (B) edge[loop above] node {1/1} (B)
+            edge              node {0/1} (A);
+\end{tikzpicture}
+\caption{A simple Finite-State Machine with output}
+\end{figure}
+
+In the above diagram, each state is labelled by a pair of the state name and its output, e.g., "q0, 0" represents a state "q0" with output "0". An edge is labelled by a pair of input and its next state, e.g., "0/0" indicates that if the current input is "0", then the machine remains in the same state.
+
+\end{document}
+```
+
+This complete example describes the structure of a finite-state machine with output, depicted through a directed graph, where nodes represent the state of a system and the edges represent transitions. The initial state is marked, and the output for each state is given as a part of the node label. The input along with the next state is labelled along the edges.
+
+\subsection{Finite-State Machines with No Output}
+Sure, here's a brief LaTeX-formatted explanation on the topic "Finite-State Machines with No Output", also known as Automata.
+
+```latex
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Finite-State Machines with No Output: Automata}
+
+Finite-State Machines with No Output, also known as Automata, are computational models or systems that have finite states only. More technically, a deterministic finite automaton (DFA) is a 5-tuple $M=(Q, \Sigma, \delta, q_0, F)$ where:
+
+\begin{itemize}
+\item $Q$ is a finite set of states, 
+\item $\Sigma$ is a finite input alphabet,
+\item $\delta: Q \times \Sigma \rightarrow Q$ is the transition function, 
+\item $q_0 \in Q$ is the initial state, and
+\item $F \subseteq Q$ contains the accept states.
+\end{itemize}
+
+In the DFA, for any state $q \in Q$ and any symbol $a \in \Sigma$, there is exactly one transition from $q$ on input $a$. This transition is denoted by $\delta(q,a) = p$ for some state $p$ in $Q$.
+
+A DFA starts in the initial state $q_0$ and reads input symbols from a string. When it reads symbol $a$, it moves from state $q$ to state $\delta(q,a)$. If after reading an input string, the DFA is in an accept state, then it accepts the string. Otherwise, it rejects the string.
+
+These automata are an important basis for understanding computer science and mathematics and are fundamental for programming languages, compilers, and hardware designs.
+
+\end{document}
+```
+
+This LaTeX script uses common notation for defining a deterministic finite automaton. The output it produces will describe the components of a DFA, including its states, state transition function, initial state, and accept states. It also briefly explains how a DFA processes an input string and makes a decision to accept or reject the string. Note that LaTeX may require certain packages to compile properly, such as the {amsmath} added at the beginning of this script.
+
+\subsection{Language Recognition}
+Language Recognition is a concept primarily from the field of theoretical computer science and formal language theory. It is generally used to describe the task of determining whether a given string is a member of a particular language, typically represented by a formal grammar or automaton.
+
+Here is a LaTeX representation of the basic definition of Language Recognition:
+
+```
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section{Language Recognition}
+
+Language Recognition is a process to decide whether a given string is a member of some language. More formally, for a language $L$ over an alphabet $\Sigma$, the recognition of $L$ is a decision procedure that takes as input a string $w \in \Sigma^*$, and outputs either "yes" if $w \in L$, "no" otherwise. 
+
+A recognition procedure for a language $L$ can be represented by a computational model, such as a Deterministic Finite Automaton (DFA), a Non-Deterministic Finite Automaton (NFA), or a Turing machine. 
+
+\subsection{Finite Automata}
+
+\textbf{Deterministic Finite Automaton (DFA)} is a 5-tuple $(Q, \Sigma, \delta, q_0, F)$ where - \\
+$Q$ is a finite set of states, \\
+$\Sigma$ is a finite set of input symbols (alphabet), \\
+$\delta : Q \times \Sigma \rightarrow Q$ is the transition function, \\
+$q_0 \in Q$ is the initial state, and \\
+$F \subseteq Q$ is the set of accepting states.
+
+\textbf{Non-Deterministic Finite Automaton (NFA)} is like DFA but allows for transitions without input symbols and multiple transitions with the same input symbol. It's formally represented as a 5-tuple $(Q, \Sigma, \Delta, q_0, F)$, where $\Delta$ allows for more flexibility as compared to $\delta$ in DFA.
+
+\end{document}
+```
+
+This little piece of LaTeX code provides an initial introduction to Language Recognition and also briefly introduces the idea of Deterministic Finite Automatons (DFA) and Non-Deterministic Finite Automatons (NFA), which are commonly used computational models for recognizing languages.
+
+
+\subsection{Turing Machines}
+Surely. Here's a detailed explanation in LaTeX format on Turing Machines.
+
+```LaTeX
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Turing Machines}
+\author{Math Expert}
+\maketitle
+
+A Turing Machine, proposed by the British mathematician Alan Turing in 1936, is a theoretical device that manipulates symbols on a strip of tape according to a table of rules.
+
+\section{Formal Definition}
+
+The formal definition of a deterministic Turing machine is a 7-tuple $(Q, \Gamma, b, \Sigma, \delta, q_0, F)$ where:
+
+\begin{itemize}
+\item $Q$ is a finite, non-empty set of states
+\item $\Gamma$ is a finite, non-empty set of the tape alphabet/symbols
+\item $b \in \Gamma$ is the blank symbol
+\item $\Sigma\subseteq \Gamma \setminus \{b\}$, is the set of input symbols
+\item $\delta: (Q \setminus F)S \rightarrow QS$ is the transition function
+\item $q_0 \in Q$ is the initial state
+\item $F \subseteq Q$ is the set of final or accepting states
+\end{itemize}
+
+\section{Computation}
+The computation begins in the leftmost cell with the Turing machine in state $q_0$. The current symbol decides the action of the Turing machine based on the transition function $\delta$:
+
+\[
+\delta(q_i, x_j) = (q_k, x_l, d)
+\]
+
+Here $q_i \in Q$ is the current state, $x_j \in \Gamma$ is the current tape symbol, and the result of the transition function is a triple consisting of the next state of the machine $q_k \in Q$, the new symbol to be written on the tape $x_l \in \Gamma$, and the direction that the machine will move $d \in \{L, R\}$ (Left or Right).
+
+The computation continues until an accepting state $f \in F$ is reached.
+
+\end{document}
+```
+Note: The above LaTeX code can be compiled in any LaTeX editor to get a PDF file. This will give a preliminary understanding of Turing Machines.
+

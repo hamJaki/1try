@@ -1,0 +1,278 @@
+\section{Graphs}
+\subsection{Graphs and Graph Models}
+Sure, here is an example of how you could explain the topic "Graphs and Graph Models" in LaTeX format. Note that LaTeX does not support all keys on some keyboards, such as the '<' symbol.
+
+```
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\title{Graphs and Graph Models}
+\maketitle
+
+A \textit{graph} $G$ is an ordered pair $G :=(V,E)$ comprising a set $V$ of vertices or nodes together with a set $E$ of edges or arcs. Each edge is a 2-element subset of $V$.
+
+An example of a simple graph with 5 vertices and 5 edges:
+\begin{itemize}
+	\item Vertices, $V = \{v_1, v_2, v_3, v_4, v_5\}$
+	\item Edges, $E = \{\{v_1, v_2\}, \{v_2, v_3\}, \{v_3, v_4\}, \{v_4, v_5\}, \{v_5, v_1\}\}$
+\end{itemize}
+
+A graph can be represented visually:
+\begin{verbatim}
+v1 ----- v2
+|         |
+v5 ----- v4
+|         |
+v2 ----- v3
+\end{verbatim}
+
+A \textit{graph model} uses graphs to represent physical or abstract systems. Each vertex can represent an object in the system, and each edge represents a relationship between two objects. The degree of a vertex in a graph is the number of edges that are incident with it.
+
+If the pair is ordered, that is, $(u,v)\not= (v,u)$, then the graph is a \textit{directed graph} or digraph. If loops, which are edges that connect a vertex to itself, and multiple edges between two vertices are allowed, the graph is a \textit{multigraph}.
+
+\end{document}
+```
+
+This simple document will provide the definitions of graphs and graph models, what a simple graph is, and a simple ASCII representation of a graph. It also briefly describes the concepts of directed graphs (or digraphs) and multigraphs.
+
+
+\subsection{Graph Terminology and Special Types of Graphs}
+In graph theory, a graph is a set of objects known as vertices (or nodes) connected by links known as edges (or arcs). Graphs can be used to model many types of relations and processes in computer science, physics, and social science. Here, we explain some fundamental graph terminologies and special types of graphs.
+
+\begin{enumerate}
+  \item \textbf{Vertices and Edges}: In a graph $G$, denoted as $G=(V,E)$, $V$ is the set of vertices and $E$ is the set of edges. Each edge has either one or two vertices associated with it, called its endpoints. An edge is said to connect its endpoints.
+
+\item \textbf{Adjacency}: Two vertices are said to be \textit{adjacent} if they are connected by an edge. The edge is said to \textit{join} the vertices. Two edges are \textit{adjacent} if they share a common vertex.
+
+\item \textbf{Degree}: The \textit{degree} of a vertex is the number of edges that connect to it. For an edge with its two endpoints different, both endpoints count towards the degree, while for a loop, only one end is counted.
+
+\item \textbf{Path and Circuit}: A \textit{path} is a sequence of edges in such a way that each edge (except the first one) starts with the vertex where the previous edge terminates. In a \textit{circuit}, the first vertex is the same as the final vertex.
+
+\item \textbf{Connected Graphs}: A graph is \textit{connected} if there is a path from any vertex to any other vertex.
+
+\item \textbf{Cycle and Acyclic}: A graph is \textit{cyclic} if it has a cycle, which is a nonempty trail in which the only repeated vertices are the first and last vertices. An \textit{acyclic} graph has no cycles.
+
+\item \textbf{Tree}: A graph is called a \textit{tree} if it is acyclic and connected.
+
+\item \textbf{Isomorphic}: Two graphs are \textit{isomorphic} if they have the same number of vertices connected in the same way, but their vertices are not necessarily labeled the same.
+
+\item \textbf{Planar}: A graph is \textit{planar} if it can be drawn in a plane without any edges crossing over each other.
+
+\item \textbf{Directed and Undirected}: A graph is \textit{undirected} if the edges are not ordered pairs, otherwise the graph is \textit{directed}. In a directed graph, if an edge connects vertices $x$ and $y$, it is not the same as saying the edge connects $y$ to $x$.
+
+\item \textbf{Weighted}: A graph is \textit{weighted} if there's a number (weight) associated with each edge which might depict distance, cost, etc.
+
+\item \textbf{Subgraph}: A \textit{subgraph} $H$ of a graph $G$ is a graph whose vertices and edges are all in $G$.
+
+\end{enumerate}
+
+\subsection{Representing Graphs and Graph Isomorphism}
+Certainly, here is an example of how to explain the topics "Representing Graphs" and "Graph Isomorphism" making use of LaTeX format.
+
+\begin{document}
+
+\section{Representing Graphs}
+
+A graph $G$ is defined as a pair $(V, E)$ where $V$ is a non-empty set of vertices or nodes and $E$ is a set of edges. Each edge has two vertices associated with it, which are called its endpoints. Graphs can be represented in many ways, but two of the most common ways are Adjacency list and Adjacency matrix.
+
+\subsection{Adjacency List}
+
+An adjacency list represents a graph as an array of linked lists. The index of the array represents a vertex and each element in its linked list represents the other vertices that form an edge with the vertex. The adjacency list of a graph with n vertices can be represented as:
+
+\[
+G = \{v_1, v_2, ..., v_n\}
+\]
+
+where $v_i$ is a list of vertices adjacent to the $i$-th vertex.
+
+\subsection{Adjacency Matrix}
+
+An adjacency matrix is a square matrix used to represent a finite graph. The elements of the matrix indicate whether pairs of vertices are adjacent or not in the graph. For a graph with n vertices, we have a $n \times n$ matrix A where $A[i][j] = 1$ if there is an edge between $i$ and $j$, otherwise $A[i][j] = 0$.
+
+\[
+A = \begin{bmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn} \\
+\end{bmatrix}
+\]
+
+where $a_{ij} =  1$ if $(v_i, v_j) \in E$ else 0.
+
+\section{Graph Isomorphism}
+
+Two graphs $G$ and $H$ are said to be isomorphic if there is a bijective function $f : V(G) \rightarrow V(H)$ such that any two vertices $u$ and $v$ of $G$ are adjacent in $G$ if and only if $f(u)$ and $f(v)$ are adjacent in $H$. This can be expressed mathematically as:
+
+\begin{equation}
+(u, v) \in E(G) \Leftrightarrow (f(u), f(v)) \in E(H)
+\end{equation}
+
+In simpler terms, two graphs are isomorphic if they have the same structure.
+
+\end{document}
+
+Please note that the above LaTeX code and explanations are fairly rudimentary and I have kept them simple intentionally. You may add more complexity according to your level of understanding.
+
+\subsection{Connectivity}
+Connectivity is a fundamental concept in graph theory which is used to describe certain properties of a graph. The formal definition is the following:
+
+\begin{definition}
+An undirected graph is called \textit{connected} if there is a path between any two nodes. In other words, we can get from any node to any other node by traversing the edges of the graph.
+\end{definition}
+
+A related measure is the connectivity of a graph:
+
+\begin{definition}
+The \textit{connectivity} of a graph $G$, denoted by $\kappa(G)$, is the minimum number of vertices we need to delete in order to disconnect the graph.
+\end{definition}
+
+Another relevant concept is edge-connectivity:
+
+\begin{definition}
+The \textit{edge-connectivity} of a graph $G$, denoted by $\lambda(G)$, is the minimum number of edges we need to delete in order to disconnect the graph.
+\end{definition}
+
+These concepts enable us to characterise graphs based on how connected they are. For instance, a tree is a type of graph that is minimally connected, which means it is connected but not $2$-connected. Another example is a cycle graph that is $2$-connected.
+
+Let's consider a small undirected graph with four vertices and four edges. This graph is connected, i.e., $\kappa(G)=1$ and $\lambda(G)=1$.
+
+If we add another edge to our graph so it forms a cycle, then the graph becomes $2$-connected, i.e., $\kappa(G)=2$ and $\lambda(G)=2$.
+
+Finally, it's worth noting that for any graph $G$, the following inequality always holds: $\kappa(G) \leq \lambda(G) \leq \delta(G)$, where $\delta(G)$ denotes the minimum degree of the graph.
+
+\subsection{Euler and Hamilton Paths}
+In graph theory, two important types of paths - Euler and Hamilton paths - are often discussed. Here's a basic LaTeX-formatted explanation:
+
+\begin{verbatim}
+\section{Euler Paths and Circuits}
+
+An Euler path in a graph $G$ is a path that traverses each edge of $G$ exactly once. An Euler circuit is an Euler path which starts and ends on the same vertex. 
+
+The following theorem characterizes the existence of Euler paths and circuits:
+
+\begin{theorem} [Euler Theorem]
+A connected graph $G$ has an Euler circuit if and only if the degree of every vertex in $G$ is even. $G$ has an Euler path but not an Euler circuit if and only if it has exactly two vertices of odd degree.
+\end{theorem}
+
+\section{Hamilton Paths and Circuits}
+
+A Hamilton path in a graph $G$ is a path that visits each vertex of $G$ exactly once. A Hamilton circuit is a Hamilton path that starts and ends on the same vertex.
+
+However, unlike Euler paths and circuits, no simple criterion is known for the existence of Hamilton paths and circuits. One known criterion is the Dirac's theorem for Hamilton circuits:
+
+\begin{theorem} [Dirac's Theorem]
+A graph $G$ with $n$ vertices ($n\geq3$) is Hamilton-connected if for every vertex $v$ in $G$, the degree of $v$ is at least $n/2$.
+\end{theorem}
+\end{verbatim}
+
+These definitions and theorems provide a basic introduction to Euler and Hamilton paths. Euler's Theorem presents a test to determine if a graph contains an Euler path or circuit, while Dirac's theorem provides a sufficient condition for the existence of Hamilton circuits. Remember that while Euler paths and circuits focus on edges, Hamilton paths and circuits focus on vertices.
+
+\subsection{Shortest-Path Problems}
+Sure, here you go.
+
+```latex
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Shortest-Path Problems}
+\maketitle
+
+In graph theory, a shortest-path problem is the problem of finding a path between two vertices (or nodes) in a graph such that the sum of the weights of its constituent edges is minimized. This is a common problem in many fields, notably in transportation, logistics, or computer networks.
+
+Formally, let's say we have a function $d: V \times V \rightarrow \mathbb{R^+}$ with $V$ being the set of vertices. We would like to find a path $P$ from a source vertex $u$ to a target vertex $v$ such that $\sum_{(x,y)\in P} d(x, y)$ is minimized.
+
+The most famous algorithm for solving this problem is Dijkstra's algorithm. The algorithm creates a tree of shortest paths from the starting vertex, the source, to all other points in the graph.
+
+The basic steps of Dijkstra's algorithm are as follows:
+
+\begin{enumerate}
+\item Assign to every node a tentative distance value: set it to zero for our initial node and to infinity for all other nodes.
+\item Set the initial node as current. Mark all other nodes unvisited. Create a set of the unvisited nodes called the unvisited set.
+\item For the current node, consider all of its unvisited neighbors and calculate their tentative distances. Compare the newly calculated tentative distance to the current assigned value and assign the smaller one.
+\item When we are done considering all of the neighbors of the current node, mark the current node as visited and remove it from the unvisited set. A visited node will never be checked again.
+\item If the destination node has been marked visited or if the smallest tentative distance among the nodes in the unvisited set is infinity, then stop. The algorithm has finished.
+\item Otherwise, select the unvisited node that is marked with the smallest tentative distance, set it as the new "current node", and go back to step 3.
+\end{enumerate}
+
+This algorithm quickly finds the shortest path to all nodes in a graph, but it requires the graph to have non-negative edge weights.
+
+\end{document}
+```
+
+This LaTeX code explains the concept of Shortest-Path Problems and Dijkstra's algorithm in detail. The LaTeX does not represent mathematical expressions or code. Instead, it is written in LaTeX markup language which can be compiled by a LaTeX compiler to create a PDF.
+
+
+\subsection{Planar Graphs}
+A graph is a mathematical object that consists of points, known as vertices, connected by lines, known as edges. A planar graph is a graph that can be drawn in the plane such that no two edges intersect. 
+
+Let's denote a graph as $G=(V,E)$, where $V$ is a set of vertices and $E$ is a set of edges. 
+
+\begin{document}
+\begin{itemize}
+
+\item A \emph{planar graph} is a graph which can be drawn on the plane in such a way that its edges intersect only at their endpoints. In other words, it can be embedded in the plane.
+
+\item A \textbf{drawing} of a graph in the plane is called a \emph{plane graph} or a \emph{planar embedding of a graph}. In a plane graph, the regions of the plane that are bounded by the edges of the graph are called \emph{faces}.
+
+\item A key characteristic of planar graphs is that they obey \emph{Euler's formula}. For a connected planar graph with $n$ vertices, $m$ edges and $f$ faces, Euler's formula states: 
+
+\begin{equation}
+n - m + f = 2
+\end{equation}
+
+\item Another important property of planar graphs is the \emph{Four color theorem}, which states that the vertices of every planar graph can be colored with at most four colors so that no two adjacent vertices share the same color.
+
+\item A \emph{subgraph} of a graph G is a graph whose vertices and edges are subsets of those of G. A graph is planar if and only if it does not contain a subgraph that is homeomorphic to $K_5$ or $K_{3,3}$, where $K_5$ and $K_{3,3}$ are the complete graph on five vertices and the complete bipartite graph on six vertices, respectively.
+
+\end{itemize}
+\end{document}
+
+The aforementioned properties form the basis of recognizing and applying planar graphs in Mathematics, and further lead onto other significant topics in Graph theory like Kuratowski's Theorem.
+
+\subsection{Graph Coloring}
+In graph theory, the task of assigning colors to the vertices of a graph $G$ in such a way that no two adjacent vertices have the same color is referred as "Graph Coloring". Now, let us dive in more detail about it. 
+
+```latex
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\title{Graph Coloring}
+\author{Author's Name}
+\date{\today}
+\maketitle
+
+One of the most interesting topics in graph theory is the \textit{Graph Coloring}. Formally, a coloring of a graph $G = (V, E)$ is a mapping $c: V \rightarrow \mathbb{S}$, where each element of $\mathbb{S}$ is known as a color. For any two vertices $x$, $y \in V$, if $\{x, y\} \in E$ then $c(x) \neq c(y)$.
+
+That is, 
+
+\begin{equation}
+\{x, y\} \in E \Rightarrow c(x) \neq c(y)
+\end{equation}
+
+The \textit{chromatic number} denoted by $\chi(G)$ is the minimum number of colors needed to color a graph $G$.
+
+A \textit{k-coloring} of $G$ is a coloring c using k colors, i.e., $\mathbb{S} = \{1, 2, \ldots, k\}$. If there is a k-coloring then it can be said that  $\chi(G) \le k$.
+
+A graph is said to be \textit{k-colorable} if there exists a k-coloring and \textit{k-chromatic} if $\chi(G) = k$.
+
+\textbf{Example}
+
+A simple cycle on $n \geq 3$ vertices is 2-colorable if and only if $n$ is even. 
+
+Kindly note that, the problem of determining whether a given graph is k-colorable is NP-complete for $k \ge 3$.
+
+\end{document}
+```
+
+This LaTeX source code when compiled will provide a detailed explanation of the Graph Coloring concept. It can be further expanded with more examples and explanations around the concepts of k-coloring, k-colorable, and k-chromatic graphs.
+
