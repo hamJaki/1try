@@ -1,7 +1,7 @@
 // authService.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5002/api/auth/';
+const API_URL = 'https://1try-production.up.railway.app/api/auth/';
 
 const register = async (userData) => {
     try {
