@@ -1,9 +1,15 @@
-import React from 'react';
-import '../styles/homePage.css';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../images/logotype.png'; // Import your logo file
+import logo from '../images/logotype.png';
+import '../styles/homePage.css';
 
-function App() {
+function HomePage() {
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
+
     return (
         <div className="App">
             <header className="header">
@@ -11,16 +17,21 @@ function App() {
                     <div className="logo">
                         <img src={logo} alt="Your Logo" className="logo-image" />
                     </div>
-                    <ul className="nav-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#learners">For Learners</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                    <div className="auth-buttons">
-                        <Link to="/login" className="btn auth-btn">Sign In</Link>
-                        <Link to="/register" className="btn auth-btn">Sign Up</Link>
+                    <div className={`burger ${menuOpen ? "open" : ""}`} onClick={toggleMenu}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
+                    <ul className={`nav-links ${menuOpen ? "nav-active" : ""}`}>
+                        <li><a href="#home" onClick={toggleMenu}>Home</a></li>
+                        <li><a href="#about" onClick={toggleMenu}>About</a></li>
+                        <li><a href="#learners" onClick={toggleMenu}>For Learners</a></li>
+                        <li><a href="#contact" onClick={toggleMenu}>Contact</a></li>
+                        <div className="auth-buttons">
+                            <Link to="/login" className="btn auth-btn" onClick={toggleMenu}>Sign In</Link>
+                            <Link to="/register" className="btn auth-btn" onClick={toggleMenu}>Sign Up</Link>
+                        </div>
+                    </ul>
                 </nav>
             </header>
 
@@ -100,4 +111,4 @@ function App() {
     );
 }
 
-export default App;
+export default HomePage;
