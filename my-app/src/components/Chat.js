@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { MathJax, MathJaxContext } from 'better-react-mathjax';
+import Latex from 'react-latex-next';
+import 'katex/dist/katex.min.css';
 import ReactMarkdown from 'react-markdown';
 import '../styles/Chat.css'; // Adjust the path as needed
 import Logo from '../images/logotype.png'; // Adjust the path as needed
@@ -187,11 +188,9 @@ function Chat() {
         <div className="latex-modal">
             <div className="latex-modal-content">
                 <button onClick={onClose} className="close-button">×</button>
-                <MathJaxContext>
-                    <div className="latex-content">
-                        <MathJax dynamic>{content}</MathJax>
-                    </div>
-                </MathJaxContext>
+                <div className="latex-content">
+                    <Latex>{content}</Latex>
+                </div>
                 <button onClick={onClose} className="bottom-close-button">Close</button>
             </div>
         </div>
@@ -208,9 +207,9 @@ function Chat() {
 
         return parts.map((part, index) => (
             <span key={index}>
-                <ReactMarkdown>{part}</ReactMarkdown>
-                {latexParts[index] && <MathJax dynamic>{latexParts[index]}</MathJax>}
-            </span>
+            <ReactMarkdown>{part}</ReactMarkdown>
+                {latexParts[index] && <Latex>{latexParts[index]}</Latex>}
+        </span>
         ));
     };
 
@@ -227,8 +226,8 @@ function Chat() {
                                 key={option.id}
                                 className={`chat-custom-option ${activeChat === option.id ? 'active' : ''}`}
                                 onClick={() => handleChatChange(option.id)}
-                                whileHover={{scale: 1.05}}
-                                whileTap={{scale: 0.95}}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
                                 <span className="chat-custom-option-icon">{option.icon}</span>
                                 {option.name}
@@ -258,22 +257,20 @@ function Chat() {
                     )}
                 </div>
                 <div className="chat-custom-messages-container">
-                    <MathJaxContext>
-                        <AnimatePresence>
-                            {messages.map((message, index) => (
-                                <motion.div
-                                    key={index}
-                                    className={`chat-custom-message ${message.user ? 'chat-custom-user' : 'chat-custom-bot'}`}
-                                    initial={{opacity: 0, y: 20}}
-                                    animate={{opacity: 1, y: 0}}
-                                    exit={{opacity: 0, y: -20}}
-                                    transition={{duration: 0.3}}
-                                >
-                                    {renderMessage(message)}
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
-                    </MathJaxContext>
+                    <AnimatePresence>
+                        {messages.map((message, index) => (
+                            <motion.div
+                                key={index}
+                                className={`chat-custom-message ${message.user ? 'chat-custom-user' : 'chat-custom-bot'}`}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                {renderMessage(message)}
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                     {isLoading && (
                         <div className="chat-custom-message chat-custom-bot loading">
                             <div className="chat-custom-typing-indicator">

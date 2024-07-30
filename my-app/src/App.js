@@ -4,6 +4,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Chat from './components/Chat';
 import ProtectedRoute from './components/ProtectedRoute';
+import { Analytics } from "@vercel/analytics/react"
 import Home from './components/homePage';
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/chat" element={<ProtectedRoute component={Chat} />} />
                 </Routes>
+                <Analytics />
             </div>
         </Router>
     );
