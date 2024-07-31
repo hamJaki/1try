@@ -1,4 +1,4 @@
-/* ChatCustom.css */
+/* General styling */
 body, html {
     margin: 0;
     padding: 0;
@@ -10,22 +10,27 @@ body, html {
     display: flex;
     height: 100vh;
     overflow: hidden;
+    position: relative;
 }
 
 .chat-custom-sidebar {
     display: flex;
     flex-direction: column;
-    width: 250px; /* adjust as needed */
-    background-color: #f0f0f0; /* adjust color as needed */
-}
-
-.chat-custom-sidebar {
-    width: 250px;
     background-color: #2c3e50;
-    padding: 20px;
+    padding: 30px;
     color: white;
-    display: flex;
-    flex-direction: column;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    transform: translateX(-100%); /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* Default sidebar width */
+}
+
+.chat-custom-sidebar.visible {
+    transform: translateX(0);
 }
 
 .chat-custom-logo {
@@ -46,7 +51,7 @@ body, html {
 .chat-custom-options-container {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    /*padding: 1px;*/
 }
 
 .chat-custom-option {
@@ -78,6 +83,12 @@ body, html {
     display: flex;
     flex-direction: column;
     background-color: #ecf0f1;
+    overflow: hidden;
+    position: relative;
+}
+
+.chat-custom-main.sidebar-visible {
+    padding-left: 50px; /* Adjust according to the sidebar width and desired spacing */
 }
 
 .chat-custom-header {
@@ -87,12 +98,14 @@ body, html {
     padding: 15px 20px;
     background-color: #3498db;
     color: white;
+    position: relative;
 }
 
 .chat-custom-header h1 {
     font-size: 20px;
     font-weight: 500;
     margin: 0;
+    padding-left: 50px; /* Space for hamburger menu */
 }
 
 .chat-custom-logout-button {
@@ -185,98 +198,84 @@ body, html {
     cursor: not-allowed;
 }
 
-.chat-custom-typing-indicator {
-    display: flex;
-    padding: 8px 12px;
-    background-color: white;
-    border-radius: 8px;
-    align-self: flex-start;
-}
-
-.chat-custom-typing-indicator span {
-    height: 8px;
-    width: 8px;
-    margin: 0 2px;
-    background-color: #888;
-    border-radius: 50%;
-    display: inline-block;
-    animation: typing 1s infinite ease-in-out;
-}
-
-.chat-custom-typing-indicator span:nth-child(1) { animation-delay: 0.2s; }
-.chat-custom-typing-indicator span:nth-child(2) { animation-delay: 0.4s; }
-.chat-custom-typing-indicator span:nth-child(3) { animation-delay: 0.6s; }
-
-@keyframes typing {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0); }
-}
-
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-.latex-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.latex-modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 80%;
-    max-height: 80%;
-    overflow: auto;
-    position: relative;
-}
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    background: none;
-    border: none;
+/* Hamburger menu button */
+.hamburger-menu {
+    display: block;
     cursor: pointer;
+    font-size: 2em;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    z-index: 1001; /* Ensure it appears above other elements */
 }
 
-.latex-modal-content pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
 .doc-link-button {
     background-color: rgba(255, 255, 255, 0.2);
     color: white;
     border: none;
-    padding: 6px 12px;
+    padding: 4px 6px; /* Reduced padding for a more compact button */
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 10px;
+    margin-left: 8px; /* Reduced margin */
+    font-size: 12px;  /* Adjusted font size */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Prevent text wrapping */
+    max-width: 150px; /* Optional: set a max-width if needed */
+    overflow: hidden; /* Optional: hide overflow text */
+    text-overflow: ellipsis; /* Optional: add ellipsis for overflow text */
 }
 
 .doc-link-button:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
+
+@media (max-width: 768px) {
+    .chat-custom-container {
+        flex-direction: column;
+    }
+
+    .chat-custom-sidebar {
+        width: 100%; /* Full width for mobile */
+    }
+
+    .chat-custom-main {
+        height: calc(100vh - 56px); /* Adjust based on your header height */
+    }
+
+    .chat-custom-header h1 {
+        font-size: 16px;
+    }
+
+    .chat-custom-message {
+        max-width: 85%;
+    }
+
+    .chat-custom-input-area {
+        padding: 10px;
+    }
+
+    .chat-custom-input-area input {
+        padding: 8px 12px;
+    }
+
+    .chat-custom-send-button {
+        width: 35px;
+        height: 35px;
+    }
+}
+.chat-custom-container.sidebar-visible .chat-custom-main {
+    margin-left: 250px; /* Adjust this value according to the sidebar width */
+    transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .chat-custom-container.sidebar-visible .chat-custom-main {
+        margin-left: 0; /* Full screen use on mobile */
+    }
+}
+

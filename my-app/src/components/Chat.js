@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
 import ReactMarkdown from 'react-markdown';
-import '../styles/Chat.css'; // Adjust the path as needed
-import Logo from '../images/logotype.png'; // Adjust the path as needed
+import '../styles/Chat.css';
+import Logo from '../images/logotype.png';
 
 const chatOptions = [
     { id: 'foundations', name: 'The Foundations: Logic and Proofs', icon: '📘', docUrl: '/texfiles/the_foundations__logic_and_proofs.tex' },
@@ -31,6 +31,7 @@ function Chat() {
     const [activeChat, setActiveChat] = useState('foundations');
     const [latexContent, setLatexContent] = useState('');
     const [showLatex, setShowLatex] = useState(false);
+    const [sidebarVisible, setSidebarVisible] = useState(false); // Default hidden for all screens
     const messagesEndRef = useRef(null);
     const API_URL = 'https://1try-production.up.railway.app';
     const navigate = useNavigate();
@@ -78,6 +79,11 @@ function Chat() {
     const handleChatChange = (chatId) => {
         setMessages([]);
         setActiveChat(chatId);
+
+        // Hide the sidebar after selecting a chat option if on mobile
+        if (window.innerWidth < 768) {
+            setSidebarVisible(false);
+        }
     };
 
     const getChatContext = (chatId) => {
@@ -184,12 +190,24 @@ function Chat() {
         }
     };
 
+    const toggleSidebar = () => {
+        setSidebarVisible(!sidebarVisible);
+        const chatContainer = document.querySelector('.chat-custom-container');
+        if (chatContainer) {
+            if (!sidebarVisible) {
+                chatContainer.classList.add('sidebar-visible');
+            } else {
+                chatContainer.classList.remove('sidebar-visible');
+            }
+        }
+    };
+
     const LaTeXModal = ({ content, onClose }) => (
         <div className="latex-modal">
             <div className="latex-modal-content">
                 <button onClick={onClose} className="close-button">×</button>
                 <div className="latex-content">
-                    <Latex>{content}</Latex>
+                    <Latex>{`$$${content}$$`}</Latex>
                 </div>
                 <button onClick={onClose} className="bottom-close-button">Close</button>
             </div>
@@ -197,25 +215,21 @@ function Chat() {
     );
 
     const renderMessage = (message) => {
-        const regex = /\$.*?\$/g;
-        const parts = message.text.split(regex);
-        const latexParts = message.text.match(regex);
-
-        if (!latexParts) {
-            return <ReactMarkdown>{message.text}</ReactMarkdown>;
-        }
-
-        return parts.map((part, index) => (
-            <span key={index}>
-            <ReactMarkdown>{part}</ReactMarkdown>
-                {latexParts[index] && <Latex>{latexParts[index]}</Latex>}
-        </span>
-        ));
+        const parts = message.text.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
+        return parts.map((part, index) => {
+            if (part.startsWith('$$') && part.endsWith('$$')) {
+                return <Latex key={index}>{part}</Latex>;
+            } else if (part.startsWith('$') && part.endsWith('$')) {
+                return <Latex key={index}>{part}</Latex>;
+            } else {
+                return <ReactMarkdown key={index}>{part}</ReactMarkdown>;
+            }
+        });
     };
 
     return (
         <div className="chat-custom-container">
-            <div className="chat-custom-sidebar">
+            <div className={`chat-custom-sidebar ${sidebarVisible ? 'visible' : ''}`}>
                 <div className="chat-custom-logo">
                     <img src={Logo} alt="Logo"/>
                 </div>
@@ -226,19 +240,14 @@ function Chat() {
                                 key={option.id}
                                 className={`chat-custom-option ${activeChat === option.id ? 'active' : ''}`}
                                 onClick={() => handleChatChange(option.id)}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{scale: 1.05}}
+                                whileTap={{scale: 0.95}}
                             >
                                 <span className="chat-custom-option-icon">{option.icon}</span>
                                 {option.name}
                             </motion.button>
                         ))}
                     </div>
-                </nav>
-            </div>
-            <div className="chat-custom-main">
-                <div className="chat-custom-header">
-                    <h1>AI Chat Assistant - {activeChatOption?.name}</h1>
                     <button onClick={handleLogout} className="chat-custom-logout-button" title="Log out">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2"
                              fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -247,6 +256,15 @@ function Chat() {
                             <line x1="21" y1="12" x2="9" y2="12"></line>
                         </svg>
                     </button>
+                </nav>
+            </div>
+            <div className={`chat-custom-main ${sidebarVisible ? 'sidebar-visible' : ''}`}>
+                <div className="chat-custom-header">
+                    <span className="hamburger-menu" onClick={toggleSidebar}>&#9776;</span>
+                    <h1>AI Chat Assistant - {activeChatOption?.name}</h1>
+
+                    {/*//logout button*/}
+
                     {activeChatOption?.docUrl && (
                         <button
                             onClick={() => handleDocumentClick(activeChatOption.docUrl)}
