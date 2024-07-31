@@ -11,13 +11,14 @@
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Keeps the logo and nav links at the ends */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     position: relative;
 }
+
 
 .logo {
     display: flex;
@@ -36,6 +37,8 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    justify-content: center; /* Center the links */
+    flex: 2;
 }
 
 .nav-links li a {

@@ -15,7 +15,7 @@ function HomePage() {
             <header className="header">
                 <nav className="navbar">
                     <div className="logo">
-                        <img src={logo} alt="Your Logo" className="logo-image" />
+                        <img src={logo} alt="Your Logo" className="logo-image"/>
                     </div>
                     <div className={`burger ${menuOpen ? "open" : ""}`} onClick={toggleMenu}>
                         <span></span>
@@ -27,11 +27,11 @@ function HomePage() {
                         <li><a href="#about" onClick={toggleMenu}>About</a></li>
                         <li><a href="#learners" onClick={toggleMenu}>For Learners</a></li>
                         <li><a href="#contact" onClick={toggleMenu}>Contact</a></li>
-                        <div className="auth-buttons">
-                            <Link to="/login" className="btn auth-btn" onClick={toggleMenu}>Sign In</Link>
-                            <Link to="/register" className="btn auth-btn" onClick={toggleMenu}>Sign Up</Link>
-                        </div>
                     </ul>
+                    <div className="auth-buttons">
+                        <Link to="/login" className="btn auth-btn" onClick={toggleMenu}>Sign In</Link>
+                        <Link to="/register" className="btn auth-btn" onClick={toggleMenu}>Sign Up</Link>
+                    </div>
                 </nav>
             </header>
 
