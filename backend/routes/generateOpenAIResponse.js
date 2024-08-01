@@ -94,7 +94,14 @@ async function generateOpenAIResponse(userId, message, chatType, relevantInfo) {
         await Chat.create({ userId, chatType, role: 'assistant', parts: [{ text: responseText }] });
 
         console.log('Response from OpenAI API:', responseText);
-
+        const mp3 = await openai.audio.speech.create({
+            model: "tts-1",
+            voice: "alloy",
+            input: responseText,
+        });
+        console.log(speechFile);
+        const buffer = Buffer.from(await mp3.arrayBuffer());
+        await fs.promises.writeFile(speechFile, buffer);
         return responseText;
     } catch (error) {
         console.error('Error generating response:', error);
