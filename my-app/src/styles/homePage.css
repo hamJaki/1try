@@ -1,6 +1,13 @@
+/* General Styles */
+body {
+    font-family: 'Source Serif Pro', serif;
+    margin: 0;
+    padding: 0;
+}
+
 /* Header and Navigation */
 .header {
-    padding: 10px 0;
+    padding: 10px 20px;
     background-color: #1eaedb;
     position: fixed;
     width: 100%;
@@ -11,14 +18,12 @@
 
 .navbar {
     display: flex;
-    justify-content: space-between; /* Keeps the logo and nav links at the ends */
+    justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
     position: relative;
 }
-
 
 .logo {
     display: flex;
@@ -34,10 +39,8 @@
     display: flex;
     gap: 20px;
     align-items: center;
-    margin: 0;
-    padding: 0;
     list-style: none;
-    justify-content: center; /* Center the links */
+    justify-content: center;
     flex: 2;
 }
 
@@ -59,7 +62,7 @@
 
 .auth-btn {
     padding: 8px 15px;
-    font-size: 14px;
+    font-size: 16px;
     color: #1eaedb;
     background-color: white;
     border: none;
@@ -71,11 +74,12 @@
     background-color: #f0f0f0;
     color: #1eaedb;
 }
+
 .burger {
     display: none;
     cursor: pointer;
-    width: 30px;
-    height: 20px;
+    width: 35px;
+    height: 25px;
     position: relative;
 }
 
@@ -104,7 +108,6 @@
     top: 16px;
 }
 
-/* Animation for burger icon when menu is open */
 .burger.open span:nth-child(1) {
     top: 8px;
     transform: rotate(45deg);
@@ -121,49 +124,117 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .header {
+        padding: 10px; /* Reduced padding for mobile */
+        background-color: #1eaedb;
+        position: relative;
+        width: 100%;
+        max-width: 100vw; /* Ensure header does not exceed viewport width */
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        overflow: hidden; /* Prevent any overflow */
+    }
+
     .navbar {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: 0 auto;
+        padding: 10px 20px; /* Adjust padding for a better fit */
+        box-sizing: border-box;
+    }
+
+    .logo {
+        margin: 0 auto;
+        text-align: center;
     }
 
     .burger {
-        display: flex;
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        z-index: 2001;
     }
 
-    .nav-links {
+    .nav-links, .auth-buttons {
         display: none;
         flex-direction: column;
         width: 100%;
+        text-align: center;
         background-color: #1eaedb;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 20px 0;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
-    .nav-links.nav-active {
+    .nav-links.nav-active, .auth-buttons.nav-active {
         display: flex;
     }
 
     .nav-links li {
         width: 100%;
-        text-align: center;
-        padding: 10px 0;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-links li:last-child {
+        border-bottom: none;
     }
 
     .auth-buttons {
         flex-direction: column;
+        align-items: center;
         width: 100%;
-        gap: 10px;
-        margin-top: 10px;
+        padding: 10px 0;
     }
 
-    .auth-btn {
-        width: 100%;
+    .auth-buttons .btn {
+        width: 80%;
+        padding: 15px;
+        margin: 5px 0;
+        box-sizing: border-box;
+        background-color: #fff;
+        color: #1eaedb;
+        border-radius: 4px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 14px 28px;
+        font-size: 18px;
+    }
+
+    .cards {
+        flex-direction: column;
+    }
+
+    .card {
+        flex: 1 1 100%;
+        margin-bottom: 20px;
+    }
+
+    .info-sections {
+        flex-direction: column;
+    }
+
+    .info-card {
+        flex: 1 1 100%;
         text-align: center;
     }
-}
 
+    .info-card img {
+        margin-bottom: 20px;
+        max-height: 300px;
+    }
+}
 
 /* Hero Section */
 .hero-section {
@@ -191,21 +262,20 @@
 }
 
 .hero-section h1 {
-    font-family: 'Source Serif Pro', serif;
     font-weight: 700;
     margin-bottom: 10px;
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 .hero-section p {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin-bottom: 20px;
 }
 
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 18px;
     color: white;
     background-color: #1eaedb;
     border: none;
@@ -240,7 +310,6 @@
 }
 
 .section h2 {
-    font-family: 'Source Serif Pro', serif;
     font-weight: 600;
     margin-bottom: 15px;
     text-align: center;
@@ -255,7 +324,7 @@
 .cards {
     display: flex;
     flex-wrap: nowrap;
-    gap: 20px;
+    gap: 30px;
 }
 
 .card {
@@ -274,7 +343,6 @@
 }
 
 .card h3 {
-    font-family: 'Source Serif Pro', serif;
     font-weight: 600;
     margin-bottom: 10px;
 }
@@ -319,88 +387,7 @@
     margin-top: 20px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-    }
-
-    .logo {
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .burger {
-        display: block;
-        position: absolute;
-        top: 15px;
-        right: 20px;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        background-color: #1eaedb;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-    }
-
-    .nav-links.nav-active {
-        display: flex;
-    }
-
-    .nav-links li {
-        width: 100%;
-        padding: 10px 0;
-    }
-
-    .auth-buttons {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .hero-section h1 {
-        font-size: 1.8rem;
-    }
-
-    .hero-section p {
-        font-size: 1rem;
-    }
-
-    .btn {
-        padding: 14px 28px;
-        font-size: 20px;
-    }
-
-    .cards {
-        flex-direction: column;
-    }
-
-    .card {
-        flex: 1 1 100%;
-        margin-bottom: 20px;
-    }
-
-    .info-sections {
-        flex-direction: column;
-    }
-
-    .info-card {
-        flex: 1 1 100%;
-        text-align: center;
-    }
-
-    .info-card img {
-        margin-bottom: 20px;
-        max-height: 300px;
-    }
+/* Accessibility Enhancements */
+.nav-links li a:focus, .auth-btn:focus {
+    outline: 2px solid #3498db;
 }

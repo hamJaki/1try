@@ -13,26 +13,26 @@ function HomePage() {
     return (
         <div className="App">
             <header className="header">
-                <nav className="navbar">
+                <div className="navbar">
                     <div className="logo">
                         <img src={logo} alt="Your Logo" className="logo-image"/>
                     </div>
-                    <div className={`burger ${menuOpen ? "open" : ""}`} onClick={toggleMenu}>
+                    <button className={`burger ${menuOpen ? "open" : ""}`} onClick={toggleMenu} aria-label="Toggle navigation">
                         <span></span>
                         <span></span>
                         <span></span>
-                    </div>
+                    </button>
                     <ul className={`nav-links ${menuOpen ? "nav-active" : ""}`}>
                         <li><a href="#home" onClick={toggleMenu}>Home</a></li>
                         <li><a href="#about" onClick={toggleMenu}>About</a></li>
                         <li><a href="#learners" onClick={toggleMenu}>For Learners</a></li>
                         <li><a href="#contact" onClick={toggleMenu}>Contact</a></li>
                     </ul>
-                    <div className="auth-buttons">
+                    <div className={`auth-buttons ${menuOpen ? "nav-active" : ""}`}>
                         <Link to="/login" className="btn auth-btn" onClick={toggleMenu}>Sign In</Link>
                         <Link to="/register" className="btn auth-btn" onClick={toggleMenu}>Sign Up</Link>
                     </div>
-                </nav>
+                </div>
             </header>
 
             <main className="container">
@@ -103,10 +103,6 @@ function HomePage() {
                     <p>If you have any questions or need support, feel free to reach out to us at <a href="mailto:support@discretemathtutor.com">support@discretemathtutor.com</a>.</p>
                 </section>
             </main>
-
-            <footer className="footer">
-                <p>&copy; 2024 Discrete Math AI Tutor. All rights reserved.</p>
-            </footer>
         </div>
     );
 }
