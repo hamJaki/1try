@@ -247,15 +247,8 @@ function Chat() {
                                 {option.name}
                             </motion.button>
                         ))}
+                    {/*fdlkjsjldk*/}
                     </div>
-                    <button onClick={handleLogout} className="chat-custom-logout-button" title="Log out">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2"
-                             fill="none" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                            <polyline points="16 17 21 12 16 7"></polyline>
-                            <line x1="21" y1="12" x2="9" y2="12"></line>
-                        </svg>
-                    </button>
                 </nav>
             </div>
             <div className={`chat-custom-main ${sidebarVisible ? 'sidebar-visible' : ''}`}>
@@ -263,27 +256,36 @@ function Chat() {
                     <span className="hamburger-menu" onClick={toggleSidebar}>&#9776;</span>
                     <h1>AI Chat Assistant - {activeChatOption?.name}</h1>
 
-                    {/*//logout button*/}
-
-                    {activeChatOption?.docUrl && (
-                        <button
-                            onClick={() => handleDocumentClick(activeChatOption.docUrl)}
-                            className="doc-link-button"
-                        >
-                            📄 View Documentation
+                    <div className="chat-custom-header-buttons">
+                        {activeChatOption?.docUrl && (
+                            <button
+                                onClick={() => handleDocumentClick(activeChatOption.docUrl)}
+                                className="doc-link-button"
+                            >
+                                📄 View Documentation
+                            </button>
+                        )}
+                        <button onClick={handleLogout} className="chat-custom-logout-button" title="Log out">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2"
+                                 fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
                         </button>
-                    )}
+                    </div>
                 </div>
+
                 <div className="chat-custom-messages-container">
                     <AnimatePresence>
                         {messages.map((message, index) => (
                             <motion.div
                                 key={index}
                                 className={`chat-custom-message ${message.user ? 'chat-custom-user' : 'chat-custom-bot'}`}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.3 }}
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                exit={{opacity: 0, y: -20}}
+                                transition={{duration: 0.3}}
                             >
                                 {renderMessage(message)}
                             </motion.div>
