@@ -247,7 +247,7 @@ function Chat() {
                                 {option.name}
                             </motion.button>
                         ))}
-                    {/*fdlkjsjldk*/}
+                        {/*fdlkjsjldk*/}
                     </div>
                 </nav>
             </div>
