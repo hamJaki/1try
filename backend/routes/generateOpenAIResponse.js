@@ -77,7 +77,7 @@ async function generateOpenAIResponse(userId, message, chatType, relevantInfo) {
         });
 
         const stream = await openai.chat.completions.stream({
-            model: 'gpt-4',
+            model: 'gpt-4o',
             messages: formattedChatHistory,
             stream: true,
         });
@@ -90,15 +90,6 @@ async function generateOpenAIResponse(userId, message, chatType, relevantInfo) {
         }
 
         await Chat.create({ userId, chatType, role: 'assistant', parts: [{ text: responseText }] });
-
-        // Generate TTS audio
-        const mp3 = await openai.audio.speech.create({
-            model: "tts-1",
-            voice: "alloy",
-            input: responseText,
-        });
-        const audioBuffer = Buffer.from(await mp3.arrayBuffer());
-        const audioBlob = new Blob([audioBuffer], { type: 'audio/mp3' });
         const audioUrl = URL.createObjectURL(audioBlob);
         const audioElement = new Audio(audioUrl);
         audioElement.play();
