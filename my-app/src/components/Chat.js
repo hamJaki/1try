@@ -7,6 +7,7 @@ import 'katex/dist/katex.min.css';
 import ReactMarkdown from 'react-markdown';
 import '../styles/Chat.css';
 import Logo from '../images/logotype.png';
+import { FaPaperPlane, FaMicrophone, FaVolumeUp, FaVolumeMute, FaImage, FaStop, FaPlay } from 'react-icons/fa';
 
 const chatOptions = [
     { id: 'foundations', name: 'The Foundations: Logic and Proofs', icon: '📘', docUrl: '/texfiles/the_foundations__logic_and_proofs.tex' },
@@ -31,13 +32,20 @@ function Chat() {
     const [activeChat, setActiveChat] = useState('foundations');
     const [latexContent, setLatexContent] = useState('');
     const [showLatex, setShowLatex] = useState(false);
-    const [sidebarVisible, setSidebarVisible] = useState(false); // Default hidden for all screens
+    const [sidebarVisible, setSidebarVisible] = useState(false);
+    const [isListening, setIsListening] = useState(false);
+    const [autoSpeak, setAutoSpeak] = useState(true);
+    const [image, setImage] = useState(null);
     const messagesEndRef = useRef(null);
+    const recognition = useRef(null);
+    const fileInputRef = useRef(null);
+    const synth = window.speechSynthesis;
     const API_URL = 'https://1try-production.up.railway.app';
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchChatHistory();
+        setupSpeechRecognition();
     }, [activeChat]);
 
     useEffect(() => {
@@ -80,81 +88,90 @@ function Chat() {
         setMessages([]);
         setActiveChat(chatId);
 
-        // Hide the sidebar after selecting a chat option if on mobile
         if (window.innerWidth < 768) {
             setSidebarVisible(false);
         }
     };
 
     const getChatContext = (chatId) => {
-        switch (chatId) {
-            case 'foundations':
-                return "You are an AI tutor explaining the foundations of discrete mathematics, covering topics such as propositional logic, predicates and quantifiers, and various proof methods.";
-            case 'basic-structures':
-                return "You are an AI tutor explaining basic structures in discrete mathematics, including sets, set operations, functions, sequences, summations, and matrices.";
-            case 'algorithms':
-                return "You are an AI tutor discussing algorithms, their growth, and complexity, providing insights into how they function and can be optimized.";
-            case 'number-theory-and-cryptography':
-                return "You are an AI tutor covering number theory and cryptography, explaining concepts like divisibility, modular arithmetic, and cryptographic methods.";
-            case 'induction-and-recursion':
-                return "You are an AI tutor explaining induction and recursion, including mathematical induction, strong induction, recursive definitions, and program correctness.";
-            case 'counting':
-                return "You are an AI tutor covering counting principles, such as the basics of counting, permutations, combinations, and the pigeonhole principle.";
-            case 'discrete-probability':
-                return "You are an AI tutor explaining discrete probability, including the basics of probability theory, Bayes' theorem, and calculations of expected value and variance.";
-            case 'advanced-counting-techniques':
-                return "You are an AI tutor discussing advanced counting techniques, such as recurrence relations, generating functions, and inclusion-exclusion principles.";
-            case 'relations':
-                return "You are an AI tutor explaining relations, including properties of relations, n-ary relations, equivalence relations, and partial orderings.";
-            case 'graphs':
-                return "You are an AI tutor covering graph theory, including topics like graph terminology, special types of graphs, connectivity, Euler and Hamilton paths, and graph coloring.";
-            case 'trees':
-                return "You are an AI tutor explaining trees, including their properties, applications, traversal techniques, and spanning trees.";
-            case 'boolean-algebra':
-                return "You are an AI tutor discussing Boolean algebra, including Boolean functions, logic gates, and circuit minimization techniques.";
-            case 'modeling-computation':
-                return "You are an AI tutor explaining modeling computation, covering languages and grammars, finite-state machines, and Turing machines.";
-            default:
-                return "";
-        }
+        // ... (keep your existing getChatContext function)
     };
 
-    const saveMessage = async (message, isUser) => {
-        try {
-            const token = localStorage.getItem('authToken');
-            const user = JSON.parse(localStorage.getItem('user'));
-            const userId = user._id;
-            await axios.post(`${API_URL}/api/chat/save`, {
-                userId,
-                chatType: activeChat,
-                role: isUser ? 'user' : 'assistant',
-                parts: [{ text: message }]
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        } catch (error) {
-            console.error('Error saving message:', error);
+    const setupSpeechRecognition = () => {
+        recognition.current = new window.webkitSpeechRecognition();
+        recognition.current.continuous = true;
+        recognition.current.interimResults = true;
+        recognition.current.lang = 'en-US';
+
+        recognition.current.onresult = (event) => {
+            const transcript = Array.from(event.results)
+                .map(result => result[0])
+                .map(result => result.transcript)
+                .join('');
+
+            setInput(transcript);
+        };
+    };
+
+    const toggleListening = () => {
+        if (isListening) {
+            recognition.current.stop();
+        } else {
+            recognition.current.start();
+        }
+        setIsListening(!isListening);
+    };
+
+    const speakMessage = (text, index) => {
+        setMessages(prev => prev.map((msg, i) =>
+            i === index ? { ...msg, isSpeaking: true } : msg
+        ));
+        const speech = new SpeechSynthesisUtterance(text);
+        speech.onend = () => setMessages(prev => prev.map((msg, i) =>
+            i === index ? { ...msg, isSpeaking: false } : msg
+        ));
+        synth.speak(speech);
+    };
+
+    const stopSpeaking = (index) => {
+        synth.cancel();
+        setMessages(prev => prev.map((msg, i) =>
+            i === index ? { ...msg, isSpeaking: false } : msg
+        ));
+    };
+
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImage(reader.result);
+                alert('Image uploaded successfully!');
+            };
+            reader.readAsDataURL(file);
         }
     };
 
     const sendMessage = async () => {
-        if (input.trim() === '') return;
+        if (input.trim() === '' && !image) return;
 
-        const userMessage = { text: input, user: true };
+        const userMessage = { text: input, user: true, image };
         setMessages(prevMessages => [...prevMessages, userMessage]);
-        await saveMessage(input, true);
         setInput('');
+        setImage(null);
         setIsLoading(true);
 
         try {
             const token = localStorage.getItem('authToken');
+            const user = JSON.parse(localStorage.getItem('user'));
+            const userId = user._id;
             const context = getChatContext(activeChat);
             const response = await axios.post(`${API_URL}/api/chat`, {
+                userId,
                 message: input,
                 chatType: activeChat,
-                context: context
+                context: context,
+                image: image
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -162,12 +179,11 @@ function Chat() {
             });
             const botMessage = { text: response.data.response, user: false };
             setMessages(prevMessages => [...prevMessages, botMessage]);
-            await saveMessage(response.data.response, false);
+            if (autoSpeak) speakMessage(response.data.response, messages.length);
         } catch (error) {
             console.error('Error:', error);
             const errorMessage = { text: "Sorry, I couldn't process your request.", user: false };
             setMessages(prevMessages => [...prevMessages, errorMessage]);
-            await saveMessage(errorMessage.text, false);
         } finally {
             setIsLoading(false);
         }
@@ -220,7 +236,7 @@ function Chat() {
             if (part.startsWith('$$') && part.endsWith('$$')) {
                 return <Latex key={index}>{part}</Latex>;
             } else if (part.startsWith('$') && part.endsWith('$')) {
-                return <Latex key={index}>{part}</Latex>;
+                return <Latex key={index}>{part}</Latex>
             } else {
                 return <ReactMarkdown key={index}>{part}</ReactMarkdown>;
             }
@@ -247,7 +263,6 @@ function Chat() {
                                 {option.name}
                             </motion.button>
                         ))}
-                        {/*fdlkjsjldk*/}
                     </div>
                 </nav>
             </div>
@@ -287,7 +302,16 @@ function Chat() {
                                 exit={{opacity: 0, y: -20}}
                                 transition={{duration: 0.3}}
                             >
+                                {message.image && <img src={message.image} alt="Uploaded content" className="uploaded-image" />}
                                 {renderMessage(message)}
+                                {!message.user && (
+                                    <button
+                                        onClick={() => message.isSpeaking ? stopSpeaking(index) : speakMessage(message.text, index)}
+                                        className="icon-button"
+                                    >
+                                        {message.isSpeaking ? <FaStop /> : <FaPlay />}
+                                    </button>
+                                )}
                             </motion.div>
                         ))}
                     </AnimatePresence>
@@ -310,16 +334,24 @@ function Chat() {
                         onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                         placeholder="Type a message..."
                     />
-                    <button
-                        onClick={sendMessage}
-                        disabled={isLoading}
-                        className="chat-custom-send-button"
-                    >
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2"
-                             fill="none" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                        </svg>
+                    <button onClick={() => fileInputRef.current.click()} className="icon-button">
+                        <FaImage />
+                    </button>
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleImageUpload}
+                        style={{ display: 'none' }}
+                        accept="image/*"
+                    />
+                    <button onClick={toggleListening} className={`icon-button ${isListening ? 'active' : ''}`}>
+                        <FaMicrophone />
+                    </button>
+                    <button onClick={() => setAutoSpeak(!autoSpeak)} className="icon-button">
+                        {autoSpeak ? <FaVolumeUp /> : <FaVolumeMute />}
+                    </button>
+                    <button onClick={sendMessage} className="icon-button primary">
+                        <FaPaperPlane />
                     </button>
                 </div>
             </div>
