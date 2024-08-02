@@ -1,7 +1,6 @@
 import OpenAI from 'openai';
 import Chat from '../models/Chat.js';
 import dotenv from 'dotenv';
-import fs from 'fs';
 
 dotenv.config();
 
@@ -31,7 +30,7 @@ Break Down the Problem:
 Simplify the Concepts: Break the question into smaller, manageable parts. Explain each part step-by-step. For example, if they are struggling with quadratic equations, start with the basic structure of the equation before moving to solving methods. 🔍
 Use Examples:
 
-Provide Relevant Examples: Illustrate your explanation with examples that are relatable and relevant to the student’s interests. This could involve using real-life applications of math concepts. 📊
+Provide Relevant Examples: Illustrate your explanation with examples that are relatable and relevant to the student's interests. This could involve using real-life applications of math concepts. 📊
 Encourage Problem-Solving:
 
 Promote Independence: Instead of giving the answer directly, guide the student to find the solution themselves. Ask leading questions like, "What do you think happens if we apply this formula? 🔧"
@@ -43,56 +42,69 @@ Provide Additional Resources:
 Suggest Further Reading or Practice: Recommend books, websites, or exercises that can help reinforce the concept. For example, "You might find this online resource helpful for practicing quadratic equations. 📚"
 Encourage a Growth Mindset:
 
-Foster a Positive Attitude: Remind students that struggling with a concept is part of the learning process. Encourage them by saying, "It’s great that you’re asking questions! That’s how we learn and improve. 🌱"
+Foster a Positive Attitude: Remind students that struggling with a concept is part of the learning process. Encourage them by saying, "It's great that you're asking questions! That's how we learn and improve. 🌱"
 Follow Up:
 
 Check Back Later: After some time, ask the student if they have had any further questions or if they need additional help with the topic. This shows that you care about their progress. 🔄
 Remember: Always consider the student's current level and adjust your explanations accordingly. Break your responses into multiple messages to ensure an interactive and engaging learning experience.
-
-And your creator is Shagdar Hamza, he is honorable man, who saved live of millions people.
 `;
 
-async function generateOpenAIResponse(userId, message, chatType, relevantInfo) {
+async function generateOpenAIResponse(userId, message, chatType, relevantInfo, image) {
     try {
         console.log('Sending message to OpenAI:', message);
+
+        let messages = [
+            {
+                role: 'system',
+                content: context
+            },
+            {
+                role: 'user',
+                content: []
+            }
+        ];
+
+        if (message) {
+            messages[1].content.push({ type: "text", text: message });
+        }
+
+        if (image) {
+            // Remove the data:image/jpeg;base64, part from the base64 string
+            const base64Image = image.split(',')[1];
+            messages[1].content.push({
+                type: "image_url",
+                image_url: {
+                    url: `data:image/jpeg;base64,${base64Image}`
+                }
+            });
+        }
 
         await Chat.create({ userId, chatType, role: 'user', parts: [{ text: message }] });
 
         const chatHistory = await Chat.find({ userId, chatType }).sort({ timestamp: 1 });
 
-        const formattedChatHistory = [
-            {
-                role: 'system',
-                content: context
-            },
+        messages = [
+            ...messages,
             ...chatHistory.map(chat => ({
                 role: chat.role === 'user' ? 'user' : 'assistant',
                 content: chat.parts.map(part => part.text).join('\n')
             }))
         ];
 
-        formattedChatHistory.push({
+        messages.push({
             role: 'system',
             content: `Relevant information from the PDF:\n${relevantInfo}\n\nUse this information to help answer the user's question.`
         });
 
-        const stream = await openai.chat.completions.stream({
+        const completion = await openai.chat.completions.create({
             model: 'gpt-4o',
-            messages: formattedChatHistory,
-            stream: true,
+            messages: messages,
+            max_tokens: 300,
         });
 
-        let responseText = '';
-        for await (const chunk of stream) {
-            const delta = chunk.choices[0]?.delta?.content || '';
-            process.stdout.write(delta);
-            responseText += delta;
-        }
+        const responseText = completion.choices[0].message.content;
 
         await Chat.create({ userId, chatType, role: 'assistant', parts: [{ text: responseText }] });
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audioElement = new Audio(audioUrl);
-        audioElement.play();
 
         console.log('Response from OpenAI API:', responseText);
 
