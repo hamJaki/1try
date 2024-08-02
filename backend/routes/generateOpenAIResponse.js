@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import Chat from '../models/Chat.js';
 import dotenv from 'dotenv';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -70,17 +71,15 @@ async function generateOpenAIResponse(userId, message, chatType, relevantInfo) {
             }))
         ];
 
-        // Add relevant information from the PDF as another system message
         formattedChatHistory.push({
             role: 'system',
             content: `Relevant information from the PDF:\n${relevantInfo}\n\nUse this information to help answer the user's question.`
         });
 
-        const stream = await openai.beta.chat.completions.stream({
+        const stream = await openai.chat.completions.stream({
             model: 'gpt-4',
             messages: formattedChatHistory,
             stream: true,
-            // temperature:3
         });
 
         let responseText = '';
@@ -91,6 +90,18 @@ async function generateOpenAIResponse(userId, message, chatType, relevantInfo) {
         }
 
         await Chat.create({ userId, chatType, role: 'assistant', parts: [{ text: responseText }] });
+
+        // Generate TTS audio
+        const mp3 = await openai.audio.speech.create({
+            model: "tts-1",
+            voice: "alloy",
+            input: responseText,
+        });
+        const audioBuffer = Buffer.from(await mp3.arrayBuffer());
+        const audioBlob = new Blob([audioBuffer], { type: 'audio/mp3' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audioElement = new Audio(audioUrl);
+        audioElement.play();
 
         console.log('Response from OpenAI API:', responseText);
 
