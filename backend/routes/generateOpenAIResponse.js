@@ -98,8 +98,7 @@ async function generateOpenAIResponse(userId, message, chatType, relevantInfo, i
 
         const completion = await openai.chat.completions.create({
             model: 'gpt-4o',
-            messages: messages,
-            max_tokens: 300,
+            messages: messages
         });
 
         const responseText = completion.choices[0].message.content;
